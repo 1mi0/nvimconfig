@@ -1,0 +1,40 @@
+
+vim.o.background = "dark"
+
+-- setup must be called before loading the colorscheme
+-- Default options:
+require("text-to-colorscheme").setup({
+  ai = {
+     gpt_model = "gpt-3.5-turbo-16k",
+     openai_api_key = "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",
+     green_darkening_amount = 0.85, -- Often, the generated theme results in green colors that seem to our human eyes to be more bright than it actually is, therefore this is a fudge factor to account for this, to darken greens to better match the brightness of other colors.  Enabled or disabled with auto_darken_greens flag
+     auto_darken_greens = true,
+     minimum_foreground_contrast = 0.4, -- This is used to touch up the generated theme to avoid generating foregrounds that match the background too closely.  Enabled or disabled with enable_minimum_foreground_contrast flag
+     enable_minimum_foreground_contrast = true,
+  },
+  undercurl = true,
+  underline = true,
+  verbose_logs = false, -- When true, will output logs to echom, to help debugging issues with this plugin
+  bold = true,
+  italic = {
+     strings = true,
+     comments = true,
+     operators = false,
+     folds = true,
+  },
+  strikethrough = true,
+  invert_selection = false,
+  save_as_hsv = false, -- When true, T2CSave will save colors as HSV instead of hex
+  invert_signs = false,
+  invert_tabline = false,
+  invert_intend_guides = false,
+  inverse = true,
+  dim_inactive = false,
+  transparent_mode = false,
+  hsv_palettes = {},
+  hex_palettes = {},
+  overrides = {},
+  default_palette = "gruvbox",
+})
+
+vim.cmd([[colorscheme text-to-colorscheme]])
