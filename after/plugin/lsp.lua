@@ -6,7 +6,8 @@ lsp.ensure_installed({
     'lua_ls',
     'rust_analyzer',
     'gopls',
-    'clangd'
+    'clangd',
+    'texlab'
 })
 
 local cmp = require('cmp')

@@ -24,7 +24,7 @@ return require('packer').startup(function(use)
   use('Mofiqul/vscode.nvim')
   use('svermeulen/text-to-colorscheme')
 
-  use('andweeb/presence.nvim')
+  -- use('andweeb/presence.nvim')
 
   use({'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'})
   use('nvim-treesitter/playground')
