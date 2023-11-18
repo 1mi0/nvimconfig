@@ -1,30 +1,34 @@
-local lsp = require('lsp-zero')
+local lsp = require("lsp-zero")
+local mason = require("mason")
+local mason_lspconfig = require("mason-lspconfig")
 
 lsp.preset("recommended")
 
-lsp.ensure_installed({
-    'lua_ls',
-    'rust_analyzer',
-    'gopls',
-    'clangd',
-    'texlab'
+mason.setup({})
+mason_lspconfig.setup({
+	ensure_installed = {
+		'lua_ls',
+		'rust_analyzer',
+		'gopls',
+		'clangd',
+		'texlab'
+	},
+	handlers = {
+		lsp.default_setup
+	}
 })
 
 local cmp = require('cmp')
 local cmp_select = { behavior = cmp.SelectBehavior.Select }
-local cmp_mappings = lsp.defaults.cmp_mappings({
+
+cmp.setup({
+	mapping = {
     ['C-p'] = cmp.mapping.select_prev_item(cmp_select),
     ['C-n'] = cmp.mapping.select_next_item(cmp_select),
     ['C-y'] = cmp.mapping.confirm({ select = true }),
     ['C-Space'] = cmp.mapping.complete()
+	}
 })
-
-lsp.setup_nvim_cmp({
-    mapping = cmp_mappings,
-})
-
--- Adds vim to the globals
-lsp.nvim_workspace()
 
 ---@diagnostic disable-next-line: unused-local
 lsp.on_attach(function(client, bufnr)
@@ -47,8 +51,13 @@ lsp.on_attach(function(client, bufnr)
     vim.keymap.set("n", "<leader>va", vim.lsp.buf.code_action, opts)
 end)
 
-lsp.setup()
 local lspconfig = require('lspconfig')
+
+-- Adds vim to the globals
+local lua_opts = lsp.nvim_lua_ls()
+lspconfig.lua_ls.setup(lua_opts)
+
+lsp.setup()
 
 vim.diagnostic.config({
     virtual_text = true,
