@@ -23,24 +23,25 @@ local cmp_select = { behavior = cmp.SelectBehavior.Select }
 
 cmp.setup({
 	mapping = {
-    ['C-p'] = cmp.mapping.select_prev_item(cmp_select),
-    ['C-n'] = cmp.mapping.select_next_item(cmp_select),
-    ['C-y'] = cmp.mapping.confirm({ select = true }),
-    ['C-Space'] = cmp.mapping.complete()
+		['C-p'] = cmp.mapping.select_prev_item(cmp_select),
+		['C-n'] = cmp.mapping.select_next_item(cmp_select),
+		['C-y'] = cmp.mapping.confirm({ select = true }),
+		['C-Space'] = cmp.mapping.complete()
+	},
+	window = {
+		completion = cmp.config.window.bordered(),
+		documentation = cmp.config.window.bordered(),
 	}
 })
 
----@diagnostic disable-next-line: unused-local
-lsp.on_attach(function(client, bufnr)
-    local opts = { buffer = bufnr, remap = true }
-
-    vim.keymap.set("n", "gd", "<cmd>Telescope lsp_definitions<cr>", opts)
-    vim.keymap.set("n", "gr", "<cmd>Telescope lsp_references<cr>", opts)
-    vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
-    vim.keymap.set("n", "gI", "<cmd>Telescope lsp_implementations<cr>", opts)
-    vim.keymap.set("n", "gt", "<cmd>Telescope lsp_type_definitions<cr>", opts)
-    vim.keymap.set("n", "gK", vim.lsp.buf.signature_help, opts)
-    vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
+local function common_keybinds(opts)
+    vim.keymap.set("n", "<leader>td", "<cmd>Telescope lsp_definitions<cr>", opts)
+    vim.keymap.set("n", "<leader>tr", "<cmd>Telescope lsp_references<cr>", opts)
+    vim.keymap.set("n", "<leader>tD", vim.lsp.buf.declaration, opts)
+    vim.keymap.set("n", "<leader>ti", "<cmd>Telescope lsp_implementations<cr>", opts)
+    vim.keymap.set("n", "<leader>tt", "<cmd>Telescope lsp_type_definitions<cr>", opts)
+    vim.keymap.set("n", "<leader>H", vim.lsp.buf.signature_help, opts)
+    vim.keymap.set("n", "<leader>K", vim.lsp.buf.hover, opts)
     vim.keymap.set("i", "<C-h>", vim.lsp.buf.signature_help, opts)
     vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, opts)
     vim.keymap.set("n", "]d", vim.diagnostic.goto_next, opts)
@@ -49,6 +50,15 @@ lsp.on_attach(function(client, bufnr)
     vim.keymap.set("n", "<leader>vs", vim.lsp.buf.workspace_symbol, opts)
     vim.keymap.set("n", "<leader>vd", vim.diagnostic.open_float, opts)
     vim.keymap.set("n", "<leader>va", vim.lsp.buf.code_action, opts)
+end
+
+local mi0_lsp = require('mi0.lsp')
+
+lsp.on_attach(function(client, bufnr)
+    local opts = { buffer = bufnr, remap = true }
+
+	common_keybinds(opts)
+	mi0_lsp.Call_all_events(mi0_lsp, client, opts)
 end)
 
 local lspconfig = require('lspconfig')

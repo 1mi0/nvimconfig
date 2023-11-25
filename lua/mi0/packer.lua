@@ -20,6 +20,7 @@ return require('packer').startup(function(use)
 	  as = 'rose-pine',
   })
   use('luisiacc/gruvbox-baby')
+  use('barrientosvctor/abyss.nvim')
   use({ 'kartikp10/noctis.nvim', requires = { 'rktjmp/lush.nvim' } })
   use("EdenEast/nightfox.nvim")
   use ({ 'projekt0n/github-nvim-theme', branch = "main" })
@@ -51,6 +52,8 @@ return require('packer').startup(function(use)
       {'rafamadriz/friendly-snippets'},
     }
   }
+
+  use 'sebdah/vim-delve'
 
   use {
     'nvim-lualine/lualine.nvim',
