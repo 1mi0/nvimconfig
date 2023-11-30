@@ -9,3 +9,5 @@ end)
 vim.keymap.set('n', '<leader>pt', function()
     builtin.grep_string({ search = "TODO" });
 end)
+
+require('telescope').load_extension('luasnip')

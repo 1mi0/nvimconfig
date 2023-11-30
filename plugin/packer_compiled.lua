@@ -129,6 +129,11 @@ _G.packer_plugins = {
     path = "/home/zestlabs/.local/share/nvim/site/pack/packer/start/lsp-zero.nvim",
     url = "https://github.com/VonHeikemen/lsp-zero.nvim"
   },
+  ["lspkind.nvim"] = {
+    loaded = true,
+    path = "/home/zestlabs/.local/share/nvim/site/pack/packer/start/lspkind.nvim",
+    url = "https://github.com/onsails/lspkind.nvim"
+  },
   ["lualine.nvim"] = {
     loaded = true,
     path = "/home/zestlabs/.local/share/nvim/site/pack/packer/start/lualine.nvim",
@@ -204,6 +209,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/zestlabs/.local/share/nvim/site/pack/packer/start/rose-pine",
     url = "https://github.com/rose-pine/neovim"
+  },
+  ["telescope-luasnip.nvim"] = {
+    loaded = true,
+    path = "/home/zestlabs/.local/share/nvim/site/pack/packer/start/telescope-luasnip.nvim",
+    url = "https://github.com/benfowler/telescope-luasnip.nvim"
   },
   ["telescope.nvim"] = {
     loaded = true,
