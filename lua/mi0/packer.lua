@@ -27,6 +27,15 @@ return require('packer').startup(function(use)
   use('Mofiqul/vscode.nvim')
   use('svermeulen/text-to-colorscheme')
 
+	use('github/copilot.vim')
+
+  use "nvim-lua/plenary.nvim" -- don't forget to add this one if you don't have it yet!
+  use {
+      "ThePrimeagen/harpoon",
+      branch = "harpoon2",
+      requires = { {"nvim-lua/plenary.nvim"} }
+  }
+
 	use({
 		"L3MON4D3/LuaSnip",
 		-- follow latest release.
