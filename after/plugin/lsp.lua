@@ -11,7 +11,8 @@ mason_lspconfig.setup({
 		'rust_analyzer',
 		'gopls',
 		'clangd',
-		'texlab'
+		'texlab',
+		'pylsp'
 	},
 	handlers = {
 		lsp.default_setup

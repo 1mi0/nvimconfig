@@ -3,10 +3,10 @@ local orig_signs_handler = vim.diagnostic.handlers.signs
 
 local function severity_highlight(severity)
 	local colors = {
-		{type=vim.diagnostic.severity.ERROR, colorgroup="DiffDelete"},
-		{type=vim.diagnostic.severity.WARN, colorgroup="DiffAdd"},
-		{type=vim.diagnostic.severity.INFO, colorgroup="Visual"},
-		{type=vim.diagnostic.severity.HINT, colorgroup="DiffAdd"},
+		{type=vim.diagnostic.severity.ERROR, colorgroup="Mi0LspError"},
+		{type=vim.diagnostic.severity.WARN, colorgroup="Mi0LspWarning"},
+		{type=vim.diagnostic.severity.INFO, colorgroup="Mi0LspInformation"},
+		{type=vim.diagnostic.severity.HINT, colorgroup="Mi0LspHint"},
 	}
 
 	for _, color in ipairs(colors) do

@@ -10,7 +10,7 @@ return require('packer').startup(function(use)
   use 'neomake/neomake'
 
   use {
-	  'nvim-telescope/telescope.nvim', tag = '0.1.4',
+	  'nvim-telescope/telescope.nvim', tag = '0.1.5',
 	  -- or                            , branch = '0.1.x',
 	  requires = { {'nvim-lua/plenary.nvim'} }
   }
@@ -26,8 +26,24 @@ return require('packer').startup(function(use)
   use ({ 'projekt0n/github-nvim-theme', branch = "main" })
   use('Mofiqul/vscode.nvim')
   use('svermeulen/text-to-colorscheme')
+  use({ 'metalelf0/jellybeans-nvim', requires = { 'rktjmp/lush.nvim' } })
+  use({ 'kabouzeid/nvim-jellybeans', requires = { 'rktjmp/lush.nvim' } })
 
-	use('github/copilot.vim')
+	use {
+		"zbirenbaum/copilot.lua",
+		cmd = "Copilot",
+		event = "InsertEnter",
+		config = function()
+			require("copilot").setup({})
+		end,
+	}
+	use {
+		"zbirenbaum/copilot-cmp",
+		after = { "copilot.lua" },
+		config = function ()
+			require("copilot_cmp").setup()
+		end
+	}
 
   use "nvim-lua/plenary.nvim" -- don't forget to add this one if you don't have it yet!
   use {
@@ -49,6 +65,7 @@ return require('packer').startup(function(use)
   use('nvim-treesitter/playground')
   use('mbbill/undotree')
   use('tpope/vim-fugitive')
+	use('rbong/vim-flog')
 	use('onsails/lspkind.nvim')
   use {
     'VonHeikemen/lsp-zero.nvim',
@@ -72,7 +89,8 @@ return require('packer').startup(function(use)
     }
   }
 
-  use 'sebdah/vim-delve'
+  use 'mfussenegger/nvim-dap'
+  use 'leoluz/nvim-dap-go'
 
   use {
     'nvim-lualine/lualine.nvim',

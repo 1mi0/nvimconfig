@@ -2,6 +2,7 @@
 -- For dark theme (neovim's default)
 vim.o.background = 'dark'
 
+--[[
 local c = require('vscode.colors').get_colors()
 require('vscode').setup({
     -- Alternatively set style in setup
@@ -30,3 +31,11 @@ require('vscode').setup({
     }
 })
 require('vscode').load()
+--]]
+
+vim.cmd[[colorscheme jellybeans |
+					\ highlight SpecialKey ctermfg=white guifg=white |
+					\ highlight Mi0LspError ctermbg=red guibg=#FF4136 ctermfg=white guifg=white |
+					\ highlight Mi0LspWarning ctermbg=yellow guibg=#FF851B ctermfg=black guifg=black |
+					\ highlight Mi0LspInformation ctermbg=blue guibg=#0074D9 ctermfg=white guifg=white |
+					\ highlight Mi0LspHint ctermbg=blue guibg=#0074D9 ctermfg=black guifg=black]]
