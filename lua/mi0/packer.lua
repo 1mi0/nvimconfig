@@ -16,18 +16,18 @@ return require('packer').startup(function(use)
   }
 
   use({
-	  'rose-pine/neovim',
-	  as = 'rose-pine',
+	  "rose-pine/neovim",
+	  as = "rose-pine",
   })
-  use('luisiacc/gruvbox-baby')
-  use('barrientosvctor/abyss.nvim')
-  use({ 'kartikp10/noctis.nvim', requires = { 'rktjmp/lush.nvim' } })
+  use("luisiacc/gruvbox-baby")
+  use("barrientosvctor/abyss.nvim")
+  use({ "kartikp10/noctis.nvim", requires = { "rktjmp/lush.nvim" } })
   use("EdenEast/nightfox.nvim")
-  use ({ 'projekt0n/github-nvim-theme', branch = "main" })
-  use('Mofiqul/vscode.nvim')
-  use('svermeulen/text-to-colorscheme')
-  use({ 'metalelf0/jellybeans-nvim', requires = { 'rktjmp/lush.nvim' } })
-  use({ 'kabouzeid/nvim-jellybeans', requires = { 'rktjmp/lush.nvim' } })
+  use ({ "projekt0n/github-nvim-theme", branch = "main" })
+  use("Mofiqul/vscode.nvim")
+  use("svermeulen/text-to-colorscheme")
+  use({ "metalelf0/jellybeans-nvim", requires = { "rktjmp/lush.nvim" } })
+  use({ "kabouzeid/nvim-jellybeans", requires = { "rktjmp/lush.nvim" } })
 
 	use {
 		"zbirenbaum/copilot.lua",
@@ -45,12 +45,13 @@ return require('packer').startup(function(use)
 		end
 	}
 
-  use "nvim-lua/plenary.nvim" -- don't forget to add this one if you don't have it yet!
   use {
       "ThePrimeagen/harpoon",
       branch = "harpoon2",
       requires = { {"nvim-lua/plenary.nvim"} }
   }
+
+	use("tpope/vim-surround")
 
 	use({
 		"L3MON4D3/LuaSnip",
