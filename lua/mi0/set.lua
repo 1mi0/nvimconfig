@@ -40,3 +40,6 @@ vim.opt.listchars = {
 }
 vim.opt.list = true
 
+vim.opt.foldcolumn = "1"
+vim.opt.foldmethod = "indent"
+vim.opt.foldlevel = 99

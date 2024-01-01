@@ -62,6 +62,8 @@ return require('packer').startup(function(use)
 	})
   -- use('andweeb/presence.nvim')
 
+  -- Linter
+	use 'mfussenegger/nvim-lint'
   use({'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'})
   use('nvim-treesitter/playground')
   use('mbbill/undotree')
