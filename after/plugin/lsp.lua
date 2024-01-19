@@ -43,7 +43,7 @@ lsp.on_attach(function(client, bufnr)
     local opts = { buffer = bufnr, remap = true }
 
 	common_keybinds(opts)
-	mi0_lsp.Call_all_events(mi0_lsp, client, opts)
+	mi0_lsp.Call_all_events(mi0_lsp, client, bufnr)
 end)
 
 local lspconfig = require('lspconfig')

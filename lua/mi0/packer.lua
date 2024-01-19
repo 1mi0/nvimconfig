@@ -15,6 +15,7 @@ return require('packer').startup(function(use)
 	  requires = { {'nvim-lua/plenary.nvim'} }
   }
 
+	use 'ray-x/aurora'
   use({
 	  "rose-pine/neovim",
 	  as = "rose-pine",
@@ -28,6 +29,7 @@ return require('packer').startup(function(use)
   use("svermeulen/text-to-colorscheme")
   use({ "metalelf0/jellybeans-nvim", requires = { "rktjmp/lush.nvim" } })
   use({ "kabouzeid/nvim-jellybeans", requires = { "rktjmp/lush.nvim" } })
+	use("ThePrimeagen/vim-be-good")
 
 	use {
 		"zbirenbaum/copilot.lua",
@@ -62,6 +64,13 @@ return require('packer').startup(function(use)
 	})
   -- use('andweeb/presence.nvim')
 
+	-- Golang and DAP
+  use 'mfussenegger/nvim-dap'
+	use 'rcarriga/nvim-dap-ui'
+	-- use 'theHamsta/nvim-dap-virtual-text'
+	use 'ray-x/go.nvim'
+	use 'ray-x/guihua.lua'
+
   -- Linter
 	use 'mfussenegger/nvim-lint'
 	use({
@@ -73,11 +82,14 @@ return require('packer').startup(function(use)
 		after = 'nvim-treesitter',
 		requires = 'nvim-treesitter/nvim-treesitter'
 	})
+	--[[ Do not like this in conjuction with 80 character lines, function
+	--   definitions take half of my screen.
 	use({
 		'nvim-treesitter/nvim-treesitter-context',
 		after = 'nvim-treesitter',
 		requires = 'nvim-treesitter/nvim-treesitter'
 	})
+	--]]
 
   use('nvim-treesitter/playground')
   use('mbbill/undotree')
@@ -105,9 +117,6 @@ return require('packer').startup(function(use)
 			{ 'benfowler/telescope-luasnip.nvim' },
     }
   }
-
-  use 'mfussenegger/nvim-dap'
-  use 'leoluz/nvim-dap-go'
 
   use {
     'nvim-lualine/lualine.nvim',
