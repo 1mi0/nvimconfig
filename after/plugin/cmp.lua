@@ -73,9 +73,8 @@ cmp.setup {
 		['C-n'] = cmp.mapping.select_next_item(cmp_select),
 		['C-y'] = cmp.mapping.confirm({ select = true }),
 		['C-Space'] = cmp.mapping.complete(),
-    ['<CR>'] = cmp.mapping.confirm({ select = false }),
-
-    ['<Tab>'] = cmp.mapping(function(fallback)
+		-- ['<CR>'] = cmp.mapping.confirm({ select = false }),
+    --[[ ['<Tab>'] = cmp.mapping(function(fallback)
       if luasnip.expandable() then
         luasnip.expand({})
       elseif luasnip.locally_jumpable(1) and cmp.get_entries()[1] and cmp.get_entries()[1].exact then -- don't force me to tab twice when matched
@@ -90,14 +89,16 @@ cmp.setup {
         fallback()
       end
     end, { "i", "s" }),
+		--]]
 
-    ['<S-Tab>'] = cmp.mapping(function(fallback)
+    --[[['<S-Tab>'] = cmp.mapping(function(fallback)
       if luasnip.locally_jumpable(-1) then
         luasnip.jump(-1)
       else
         fallback()
       end
     end, { "i", "s" }),
+		--]]
   }),
   formatting = {
     format = lspkind.cmp_format {

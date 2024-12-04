@@ -66,10 +66,14 @@ return require('packer').startup(function(use)
 
 	-- Golang and DAP
   use 'mfussenegger/nvim-dap'
+	use 'nvim-neotest/nvim-nio'
 	use 'rcarriga/nvim-dap-ui'
-	-- use 'theHamsta/nvim-dap-virtual-text'
-	use 'ray-x/go.nvim'
+	use 'theHamsta/nvim-dap-virtual-text'
 	use 'ray-x/guihua.lua'
+	use({
+		'ray-x/go.nvim',
+		-- tag = 'v0.2.1',
+	})
 
   -- Linter
 	use 'mfussenegger/nvim-lint'
@@ -96,6 +100,7 @@ return require('packer').startup(function(use)
   use('tpope/vim-fugitive')
 	use('rbong/vim-flog')
 	use('onsails/lspkind.nvim')
+
   use {
     'VonHeikemen/lsp-zero.nvim',
     requires = {
