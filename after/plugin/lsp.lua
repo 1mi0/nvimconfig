@@ -41,7 +41,7 @@ mason_lspconfig.setup({
 		end,
 		clangd = function()
 			lspconfig.clangd.setup({
-				cmd = { "clangd-17", "--inlay-hints=true" },
+				cmd = { "clangd-19", "--inlay-hints=true" },
 			})
 		end,
 	}
