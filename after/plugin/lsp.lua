@@ -2,9 +2,29 @@ local lsp = require("lsp-zero")
 local mason = require("mason")
 local mason_lspconfig = require("mason-lspconfig")
 
-local lspconfig = require('lspconfig')
-
 mason.setup({})
+
+vim.lsp.config('lua_ls', lsp.nvim_lua_ls())
+vim.lsp.config('gopls', {
+	settings = {
+		gopls = {
+			codelenses = { test = true },
+			hints = {
+				assignVariableTypes = true,
+				compositeLiteralFields = true,
+				compositeLiteralTypes = true,
+				constantValues = true,
+				functionTypeParameters = true,
+				parameterNames = true,
+				rangeVariableTypes = true,
+			},
+		},
+	},
+})
+vim.lsp.config('clangd', {
+	cmd = { "clangd-19", "--inlay-hints=true" },
+})
+
 mason_lspconfig.setup({
 	ensure_installed = {
 		'lua_ls',
@@ -13,37 +33,6 @@ mason_lspconfig.setup({
 		'clangd',
 		'texlab',
 		'pylsp'
-	},
-	handlers = {
-		lsp.default_setup,
-		lua_ls = function()
-			-- Adds vim to the globals
-			local lua_opts = lsp.nvim_lua_ls()
-			lspconfig.lua_ls.setup(lua_opts)
-		end,
-		gopls = function()
-			lspconfig.gopls.setup({
-				settings = {
-					gopls = {
-						codelenses = { test = true },
-						hints = {
-							assignVariableTypes = true,
-							compositeLiteralFields = true,
-							compositeLiteralTypes = true,
-							constantValues = true,
-							functionTypeParameters = true,
-							parameterNames = true,
-							rangeVariableTypes = true,
-						},
-					},
-				},
-			})
-		end,
-		clangd = function()
-			lspconfig.clangd.setup({
-				cmd = { "clangd-19", "--inlay-hints=true" },
-			})
-		end,
 	}
 })
 
