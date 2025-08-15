@@ -9,7 +9,7 @@ vim.lsp.config('gopls', {
 	settings = {
 		gopls = {
 			codelenses = { test = true },
-			hints = {
+			--[[ hints = {
 				assignVariableTypes = true,
 				compositeLiteralFields = true,
 				compositeLiteralTypes = true,
@@ -18,11 +18,22 @@ vim.lsp.config('gopls', {
 				parameterNames = true,
 				rangeVariableTypes = true,
 			},
+			--]]
 		},
 	},
 })
 vim.lsp.config('clangd', {
 	cmd = { "clangd-19", "--inlay-hints=true" },
+})
+vim.lsp.config('yamlls', {
+	settings = {
+		yaml = {
+			format = { enable = true },
+      hover = true,
+      completion = true,
+      validate = true,
+		},
+	},
 })
 
 mason_lspconfig.setup({

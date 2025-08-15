@@ -31,8 +31,8 @@ function DapConfig:On_client(bufnr)
     vim.keymap.set("n", "<leader>dt", "<cmd>DapToggleBreakpoint<cr>", opts)
 		vim.keymap.set("n", "<leader>dn", "<cmd>DapStepOver<cr>", opts)
 		vim.keymap.set("n", "<leader>dc", "<cmd>DapContinue<cr>", opts)
-		vim.keymap.set("n", "<leader>tr", function () require("dap-go").debug_test() end, opts)
-		vim.keymap.set("n", "<leader>tl", function () require("dap-go").debug_last() end, opts)
+		vim.keymap.set("n", "<leader>dd", function () require("dap-go").debug_test() end, opts)
+		-- vim.keymap.set("n", "<leader>tl", function () require("dap-go").debug_last() end, opts)
 end
 
 table.insert(mi0_lsp.Client_attached_event, DapConfig)

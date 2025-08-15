@@ -3,6 +3,7 @@ local mergeDefaults = require("mi0.defaults")
 ShellUtil = {
 	Running = false,
 	Name = "",
+	Bufnr = nil,
 }
 
 function ShellUtil:notify()
@@ -78,37 +79,40 @@ function ShellUtil:execute(command, settings, on_done)
 		self:notify()
 	end
 
-	local bufnr = nil
-	if merged.buf then
-		bufnr = vim.api.nvim_create_buf(false, true) -- [listed, scratch]
-		vim.api.nvim_buf_set_option(bufnr, "bufhidden", "wipe")
+	if self.Bufnr and vim.api.nvim_buf_is_valid(self.Bufnr) then
+		vim.api.nvim_buf_delete(self.Bufnr, { force = true })
 	end
+
+	self.Bufnr = vim.api.nvim_create_buf(false, true) -- [listed, scratch]
+	vim.api.nvim_buf_set_option(self.Bufnr, "bufhidden", "wipe")
 
   return vim.fn.jobstart(command, {
     stdout_buffered = true,
     stderr_buffered = true,
 
     on_stdout = function(_, data)
-      if bufnr and data then
-        vim.api.nvim_buf_set_lines(bufnr, -1, -1, false, data)
+      if self.Bufnr and data then
+        vim.api.nvim_buf_set_lines(self.Bufnr, -1, -1, false, data)
       end
     end,
 
     on_stderr = function(_, data)
-      if bufnr and data then
-        vim.api.nvim_buf_set_lines(bufnr, -1, -1, false, data)
+      if self.Bufnr and data then
+        vim.api.nvim_buf_set_lines(self.Bufnr, -1, -1, false, data)
       end
     end,
 
     on_exit = function(_, code)
 			self:dismiss()
 
-			if bufnr then
+			if merged.buf or code ~= 0 then
 				vim.cmd(merged.split)
-				vim.api.nvim_win_set_buf(0, bufnr)
+				vim.api.nvim_win_set_buf(0, self.Bufnr)
 				vim.api.nvim_win_set_height(0, merged.height)
-				vim.api.nvim_buf_set_name(bufnr, merged.bufname)
-				vim.api.nvim_buf_set_option(bufnr, 'filetype', 'log')
+				vim.api.nvim_buf_set_name(self.Bufnr, merged.bufname)
+				vim.api.nvim_buf_set_option(self.Bufnr, 'filetype', 'log')
+			else
+				vim.api.nvim_buf_delete(self.Bufnr, { force = true })
 			end
 
 			self.Running = false
