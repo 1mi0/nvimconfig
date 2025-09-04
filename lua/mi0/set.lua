@@ -1,4 +1,4 @@
-vim.opt.guicursor = ""
+vim.opt.guicursor = "n-v-c-i-r:block-Cursor/lCursori"
 
 vim.opt.nu = true
 vim.opt.relativenumber = true
@@ -30,7 +30,7 @@ vim.opt.updatetime = 50
 
 -- vim.opt.mouse = ""
 
-vim.opt.colorcolumn = "80"
+-- vim.opt.colorcolumn = "80"
 
 vim.g.mapleader = " "
 
@@ -39,7 +39,3 @@ vim.opt.listchars = {
   tab = '  ',
 }
 vim.opt.list = true
-
-vim.opt.foldcolumn = "1"
-vim.opt.foldmethod = "indent"
-vim.opt.foldlevel = 99

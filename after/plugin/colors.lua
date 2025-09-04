@@ -33,9 +33,51 @@ require('vscode').setup({
 require('vscode').load()
 --]]
 
-vim.cmd[[colorscheme jellybeans |
-					\ highlight SpecialKey ctermfg=white guifg=white |
-					\ highlight Mi0LspError ctermbg=red guibg=#FF4136 ctermfg=white guifg=white |
-					\ highlight Mi0LspWarning ctermbg=yellow guibg=#FF851B ctermfg=black guifg=black |
-					\ highlight Mi0LspInformation ctermbg=blue guibg=#0074D9 ctermfg=white guifg=white |
-					\ highlight Mi0LspHint ctermbg=blue guibg=#0074D9 ctermfg=black guifg=black]]
+require 'nvim-treesitter.configs'.setup {
+    ensure_installed = { "c", "lua", "rust", "go", "cpp", "latex" },
+    sync_install = false,
+    auto_install = true,
+
+    highlight = {
+        enable = true,
+        additional_vim_regex_highlighting = false,
+    },
+}
+
+local highlights = {
+	Normal = { bg="#151515", fg="#cfcf9d" },
+	Cursor = { bg="#ffffff", bold=false },
+	["@comment"] = { fg="#8FA854", bold=false },
+	["@string"] = { fg="#CE9178", bold=false },
+	["@string.escape"] = { fg="#CE9178", bold=false },
+	["@function"] = { fg="#cfcf9d", bold=false },
+	["@property"] = { fg="#cfcf9d", bold=false },
+	["@number"] = { fg="#cfcf9d", bold=false },
+	["@constant.builtin"] = { fg="#cfcf9d", bold=false },
+	["@operator"] = { fg="#cfcf9d", bold=false },
+	["@module"] = { fg="#cfcf9d", bold=false },
+	["@variable"] = { fg="#cfcf9d", bold=false },
+	["@type"] = { fg="#c4c441", bold=false },
+	["@type.builtin"] = { fg="#c4c441", bold=false },
+	["@type.composit"] = { fg="#B2D1F1", bold=false },
+	["@punctuation"] = { fg="#ffffff", bold=false },
+	["@keyword"] = { fg="#B2D1F1", bold=false },
+	["@function.builtin"] = { fg="#B2D1F1", bold=false },
+	SpecialKey = { fg="white" },
+	Mi0LspError = { bg="#FF4136", fg="white" },
+	Mi0LspWarning = { bg="#FF851B", fg="black" },
+	Mi0LspInformation = { bg="#0074D9", fg="white" },
+	Mi0LspHint = { bg="#0074D9", fg="black" },
+}
+
+for groups, opts in pairs(highlights) do
+		vim.api.nvim_set_hl(0, groups, opts)
+end
+
+vim.api.nvim_create_autocmd("TextYankPost", {
+	desc = "Highlight when yanking (copying) text",
+	group = vim.api.nvim_create_augroup("highlight-yank", { clear = true }),
+	callback = function()
+	vim.highlight.on_yank()
+	end,
+})

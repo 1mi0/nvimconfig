@@ -1,4 +1,5 @@
 require('go').setup({
+	icons = false,
 	dap_debug_keymap = false,
 	dap_debug_gui = {
 		layouts = {

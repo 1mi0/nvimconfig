@@ -16,10 +16,6 @@ return require('packer').startup(function(use)
   }
 
 	use 'ray-x/aurora'
-  use({
-	  "rose-pine/neovim",
-	  as = "rose-pine",
-  })
   use("luisiacc/gruvbox-baby")
   use("barrientosvctor/abyss.nvim")
   use({ "kartikp10/noctis.nvim", requires = { "rktjmp/lush.nvim" } })
@@ -65,18 +61,24 @@ return require('packer').startup(function(use)
   -- use('andweeb/presence.nvim')
 
 	-- Golang and DAP
-  use 'mfussenegger/nvim-dap'
-	use 'nvim-neotest/nvim-nio'
-	use 'rcarriga/nvim-dap-ui'
-	use 'theHamsta/nvim-dap-virtual-text'
-	use 'ray-x/guihua.lua'
+  use({
+		'mfussenegger/nvim-dap',
+		'nvim-neotest/nvim-nio',
+		'rcarriga/nvim-dap-ui',
+		'theHamsta/nvim-dap-virtual-text',
+	})
+
 	use({
 		'ray-x/go.nvim',
 		-- tag = 'v0.2.1',
+		'ray-x/guihua.lua'
 	})
 
-  -- Linter
-	use 'mfussenegger/nvim-lint'
+	--[[
+	-- Debugger
+	use 'puremourning/vimspector'
+	--]]
+
 	use({
 		'nvim-treesitter/nvim-treesitter',
 		run = ':TSUpdate',
@@ -108,6 +110,7 @@ return require('packer').startup(function(use)
       {'neovim/nvim-lspconfig'},
       {'williamboman/mason.nvim'},
       {'williamboman/mason-lspconfig.nvim'},
+			{'nvimtools/none-ls.nvim'},
       -- Autocompletion
       {'hrsh7th/nvim-cmp'},
       {'hrsh7th/cmp-buffer'},

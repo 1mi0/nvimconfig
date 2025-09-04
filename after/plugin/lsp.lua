@@ -1,6 +1,13 @@
 local lsp = require("lsp-zero")
 local mason = require("mason")
 local mason_lspconfig = require("mason-lspconfig")
+local null_ls = require("null-ls")
+
+null_ls.setup({
+	sources = {
+		null_ls.builtins.formatting.prettier,
+	},
+})
 
 mason.setup({})
 
@@ -23,15 +30,15 @@ vim.lsp.config('gopls', {
 	},
 })
 vim.lsp.config('clangd', {
-	cmd = { "clangd-19", "--inlay-hints=true" },
+	cmd = { "clangd-20", "--inlay-hints=true" },
 })
 vim.lsp.config('yamlls', {
 	settings = {
 		yaml = {
 			format = { enable = true },
-      hover = true,
-      completion = true,
-      validate = true,
+			hover = true,
+			completion = true,
+			validate = true,
 		},
 	},
 })
@@ -48,21 +55,25 @@ mason_lspconfig.setup({
 })
 
 local function common_keybinds(opts)
-    vim.keymap.set("n", "<leader>td", "<cmd>Telescope lsp_definitions<cr>", opts)
-    vim.keymap.set("n", "<leader>tr", "<cmd>Telescope lsp_references<cr>", opts)
-    vim.keymap.set("n", "<leader>tD", vim.lsp.buf.declaration, opts)
-    vim.keymap.set("n", "<leader>ti", "<cmd>Telescope lsp_implementations<cr>", opts)
-    vim.keymap.set("n", "<leader>tt", "<cmd>Telescope lsp_type_definitions<cr>", opts)
-    vim.keymap.set("n", "H", vim.lsp.buf.signature_help, opts)
-    vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
-    vim.keymap.set("i", "<C-h>", vim.lsp.buf.signature_help, opts)
-    vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, opts)
-    vim.keymap.set("n", "]d", vim.diagnostic.goto_next, opts)
+	vim.keymap.set("n", "<leader>td", "<cmd>Telescope lsp_definitions<cr>", opts)
+	vim.keymap.set("n", "<leader>tr", "<cmd>Telescope lsp_references<cr>", opts)
+	vim.keymap.set("n", "<leader>tD", vim.lsp.buf.declaration, opts)
+	vim.keymap.set("n", "<leader>ti", "<cmd>Telescope lsp_implementations<cr>", opts)
+	vim.keymap.set("n", "<leader>tt", "<cmd>Telescope lsp_type_definitions<cr>", opts)
+	vim.keymap.set("n", "H", vim.lsp.buf.signature_help, opts)
+	vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
+	vim.keymap.set("i", "<C-h>", vim.lsp.buf.signature_help, opts)
+	vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, opts)
+	vim.keymap.set("n", "]d", vim.diagnostic.goto_next, opts)
 
-    vim.keymap.set("n", "<leader>vr", vim.lsp.buf.rename, opts)
-    vim.keymap.set("n", "<leader>vs", vim.lsp.buf.workspace_symbol, opts)
-    vim.keymap.set("n", "<leader>vd", vim.diagnostic.open_float, opts)
-    vim.keymap.set("n", "<leader>va", vim.lsp.buf.code_action, opts)
+	vim.keymap.set("n", "<leader>vr", vim.lsp.buf.rename, opts)
+	vim.keymap.set("n", "<leader>vs", vim.lsp.buf.workspace_symbol, opts)
+	vim.keymap.set("n", "<leader>vd", vim.diagnostic.open_float, opts)
+	vim.keymap.set("n", "<leader>va", vim.lsp.buf.code_action, opts)
+
+	vim.keymap.set("n", "<leader>vf", function()
+		vim.lsp.buf.format({ async = true })
+	end, opts)
 end
 
 local mi0_lsp = require('mi0.lsp')
@@ -75,5 +86,5 @@ lsp.on_attach(function(client, bufnr)
 end)
 
 vim.diagnostic.config({
-    virtual_text = true,
+	virtual_text = true,
 })
