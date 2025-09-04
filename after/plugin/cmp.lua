@@ -132,24 +132,3 @@ cmp.setup.filetype('gitcommit', {
     { name = 'buffer' },
   })
 })
-
-cmp.setup.filetype('rust', {
-  sorting = {
-    comparators = {
-      -- Sort snippets below everything else
-      function(a, b)
-        local a_kind = a:get_kind()
-        local b_kind = b:get_kind()
-        local snippet_type = types.lsp.CompletionItemKind.Snippet
-
-        if a_kind == snippet_type and b_kind ~= snippet_type then
-          return false
-        elseif a_kind ~= snippet_type and b_kind == snippet_type then
-          return true
-        else
-          return nil
-        end
-      end
-    }
-  }
-})
