@@ -173,8 +173,8 @@
 (method_elem
   name: (field_identifier) @function.method)
 
-((identifier) @function.builtin
-  (#any-of? @function.builtin
+((identifier) @function
+  (#any-of? @function
     "append" "cap" "clear" "close" "complex" "copy" "delete" "imag" "len" "make" "max" "min" "new"
     "panic" "print" "println" "real" "recover"))
 
