@@ -2,11 +2,6 @@
 ; Copyright (c) 2014 Max Brunsfeld (The MIT License)
 ;
 ; Identifiers
-(type_identifier) @type
-
-(type_spec
-  name: (type_identifier) @type.definition)
-
 (field_identifier) @property
 
 (identifier) @variable
@@ -23,33 +18,6 @@
 
 (const_spec
   name: (identifier) @constant)
-
-; Function calls
-(call_expression
-  function: (identifier) @function.call)
-
-(call_expression
-  function: (selector_expression
-    field: (field_identifier) @function.method.call))
-
-; Function definitions
-(function_declaration
-  name: (identifier) @function)
-
-(method_declaration
-  name: (field_identifier) @function.method)
-
-(method_elem
-  name: (field_identifier) @function.method)
-
-; Constructors
-((call_expression
-  (identifier) @constructor)
-  (#lua-match? @constructor "^[nN]ew.+$"))
-
-((call_expression
-  (identifier) @constructor)
-  (#lua-match? @constructor "^[mM]ake.+$"))
 
 ; Operators
 [
@@ -96,17 +64,22 @@
 
 ; Keywords
 [
-  "break"
   "const"
-  "continue"
+  "var"
+] @keyword.declaration
+
+[
   "default"
   "defer"
-  "goto"
-  "range"
   "select"
-  "var"
+] @keyword.branching
+
+[
+	"continue"
+	"break"
+  "goto"
   "fallthrough"
-] @keyword
+] @keyword.jumping
 
 [
   "type"
@@ -114,13 +87,18 @@
   "interface"
 ] @keyword.type
 
-"func" @keyword.function
+(method_declaration) @keyword.function
+(function_declaration) @keyword.function
+(func_literal) @keyword.function.colorless
 
 "return" @keyword.return
 
 "go" @keyword.coroutine
 
-"for" @keyword.repeat
+[
+	"range"
+	"for"
+] @keyword.repeat
 
 [
   "import"
@@ -134,26 +112,75 @@
   "if"
 ] @keyword.conditional
 
-; Builtin types
-[
-  "chan"
-  "map"
-] @type.composit
+; types
 
-((type_identifier) @type.builtin
-  (#any-of? @type.builtin
+(type_identifier) @type
+
+(qualified_type) @type
+
+(function_type) @type
+
+(type_spec
+  name: (type_identifier) @type)
+
+((map_type) @type
+	(#not-has-parent? @type field_declaration))
+
+((map_type) @type.colorless
+	(#has-parent? @type.colorless field_declaration))
+
+((map_type) @type.colorless
+	(#has-parent? @type.colorless type_spec))
+
+((channel_type) @type
+	(#not-has-parent? @type field_declaration))
+
+((channel_type) @type.colorless
+	(#has-parent? @type.colorless field_declaration))
+
+((channel_type) @type.colorless
+	(#has-parent? @type.colorless type_spec))
+
+((type_identifier) @type
+  (#any-of? @type
     "any" "bool" "byte" "comparable" "complex128" "complex64" "error" "float32" "float64" "int"
     "int16" "int32" "int64" "int8" "rune" "string" "uint" "uint16" "uint32" "uint64" "uint8"
     "uintptr"))
 
-; Builtin functions
+; functions
+
+((call_expression
+  (identifier) @function.constructor)
+  (#lua-match? @function.constructor "^[nN]ew.+$"))
+
+((call_expression
+  (identifier) @function.constructor)
+  (#lua-match? @function.constructor "^[mM]ake.+$"))
+
+(call_expression
+  function: (identifier) @function.call)
+
+(call_expression
+  function: (selector_expression
+    field: (field_identifier) @function.method.call))
+
+(function_declaration
+  name: (identifier) @function)
+
+(method_declaration
+  name: (field_identifier) @function.method)
+
+(method_elem
+  name: (field_identifier) @function.method)
+
 ((identifier) @function.builtin
   (#any-of? @function.builtin
     "append" "cap" "clear" "close" "complex" "copy" "delete" "imag" "len" "make" "max" "min" "new"
     "panic" "print" "println" "real" "recover"))
 
 ; Delimiters
-"." @punctuation.delimiter
+("." @punctuation.delimiter
+	(#not-has-parent? @punctuation.delimiter qualified_type))
 
 "," @punctuation.delimiter
 
@@ -252,3 +279,19 @@
       (interpreted_string_literal
         (interpreted_string_literal_content) @string.regexp)
     ]))
+
+; Formatting
+; (call_expression
+  ; (selector_expression
+		; (identifier) @_identifier
+		; (field_identifier) @_field_identifier)
+	; (#match? @_identifier "fmt")
+  ; (#any-of? @_field_identifier
+    ; "Printf" "Scanf" "Sprintf")
+  ; (argument_list
+    ; .
+    ; [
+      ; (interpreted_string_literal
+        ; (interpreted_string_literal_content) @formatting
+				; (#match? @formatting "%[sdf]"))
+    ; ]))

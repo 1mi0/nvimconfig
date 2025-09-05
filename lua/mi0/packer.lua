@@ -65,7 +65,6 @@ return require('packer').startup(function(use)
 		'mfussenegger/nvim-dap',
 		'nvim-neotest/nvim-nio',
 		'rcarriga/nvim-dap-ui',
-		'theHamsta/nvim-dap-virtual-text',
 	})
 
 	use({
