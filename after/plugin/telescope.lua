@@ -11,6 +11,5 @@ local telescope = require('telescope')
 telescope.load_extension('luasnip')
 telescope.setup{
 	defaults = {
-		preview = false,
 	},
 }

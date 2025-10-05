@@ -31,7 +31,7 @@ vim.lsp.config('gopls', {
 	},
 })
 vim.lsp.config('clangd', {
-	cmd = { "clangd-20", "--inlay-hints=true" },
+	cmd = { "clangd-20", "--inlay-hints=false" },
 })
 vim.lsp.config('yamlls', {
 	settings = {
@@ -43,6 +43,8 @@ vim.lsp.config('yamlls', {
 		},
 	},
 })
+
+vim.lsp.inlay_hint.enable(false)
 
 mason_lspconfig.setup({
 	ensure_installed = {

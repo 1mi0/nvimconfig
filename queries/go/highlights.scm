@@ -69,7 +69,6 @@
 ] @keyword.declaration
 
 [
-  "default"
   "defer"
   "select"
 ] @keyword.branching
@@ -96,32 +95,33 @@
 "go" @keyword.coroutine
 
 [
-	"range"
-	"for"
-] @keyword.repeat
-
-[
   "import"
   "package"
 ] @keyword.import
 
 [
+	"range"
+	"for"
+] @keyword.repeat
+
+[
   "else"
   "case"
+  "default"
   "switch"
   "if"
 ] @keyword.conditional
 
 ; types
 
-(type_identifier) @type
-
 (qualified_type) @type
 
 (function_type) @type
 
-(type_spec
-  name: (type_identifier) @type)
+(type_identifier) @type
+
+; (type_spec
+  ; name: (type_identifier) @type)
 
 ((map_type) @type
 	(#not-has-parent? @type field_declaration))
@@ -141,11 +141,11 @@
 ((channel_type) @type.colorless
 	(#has-parent? @type.colorless type_spec))
 
-((type_identifier) @type
-  (#any-of? @type
-    "any" "bool" "byte" "comparable" "complex128" "complex64" "error" "float32" "float64" "int"
-    "int16" "int32" "int64" "int8" "rune" "string" "uint" "uint16" "uint32" "uint64" "uint8"
-    "uintptr"))
+;((type_identifier) @type
+  ;(#any-of? @type
+    ;"any" "bool" "byte" "comparable" "complex128" "complex64" "error" "float32" "float64" "int"
+    ;"int16" "int32" "int64" "int8" "rune" "string" "uint" "uint16" "uint32" "uint64" "uint8"
+    ;"uintptr"))
 
 ; functions
 
@@ -211,7 +211,7 @@
 
 (int_literal) @number
 
-(float_literal) @number.float
+(float_literal) @number
 
 (imaginary_literal) @number
 
