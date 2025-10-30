@@ -54,6 +54,8 @@ local highlights = {
 	["@function"] = { fg="#cfcf9d", bold=false },
 	["@property"] = { fg="#cfcf9d", bold=false },
 	["@number"] = { fg="#de9c66", bold=false },
+	["@number.float"] = { fg="#de9c66", bold=false },
+	["@tag"] = { fg="#cfcf9d", bold=false },
 	["@boolean"] = { fg="#de9c66", bold=false },
 	["@constant.builtin"] = { fg="#de9c66", bold=false },
 	["@constant"] = { fg="#cfcf9d", bold=false },
