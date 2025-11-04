@@ -27,6 +27,7 @@ return require('packer').startup(function(use)
   use({ "kabouzeid/nvim-jellybeans", requires = { "rktjmp/lush.nvim" } })
 	use("ThePrimeagen/vim-be-good")
 
+	--[[
 	use {
 		"zbirenbaum/copilot.lua",
 		cmd = "Copilot",
@@ -35,6 +36,7 @@ return require('packer').startup(function(use)
 			require("copilot").setup({})
 		end,
 	}
+
 	use {
 		"zbirenbaum/copilot-cmp",
 		after = { "copilot.lua" },
@@ -42,6 +44,7 @@ return require('packer').startup(function(use)
 			require("copilot_cmp").setup()
 		end
 	}
+	--]]
 
   use {
       "ThePrimeagen/harpoon",
