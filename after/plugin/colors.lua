@@ -44,51 +44,7 @@ require 'nvim-treesitter.configs'.setup {
     },
 }
 
-local highlights = {
-	Normal = { bg="#151515", fg="#cfcf9d" },
-	Cursor = { bg="#ffffff", bold=false },
-	["@label"] = { fg="#ffffff", bold=false },
-	["@comment"] = { fg="#86a63c", bold=false },
-	["@string"] = { fg="#d67e5a", bold=false },
-	["@string.escape"] = { fg="#d67e5a", bold=false },
-	["@function"] = { fg="#cfcf9d", bold=false },
-	["@property"] = { fg="#cfcf9d", bold=false },
-	["@number"] = { fg="#de9c66", bold=false },
-	["@number.float"] = { fg="#de9c66", bold=false },
-	["@tag"] = { fg="#cfcf9d", bold=false },
-	["@boolean"] = { fg="#de9c66", bold=false },
-	["@constant.builtin"] = { fg="#de9c66", bold=false },
-	["@constant"] = { fg="#cfcf9d", bold=false },
-	["@operator"] = { fg="#cfcf9d", bold=false },
-	["@constructor"] = { fg="#cfcf9d", bold=false },
-	["@module"] = { fg="#cfcf76", bold=false },
-	["@type"] = { fg="#cfcf76", bold=false },
-	["@type.builtin"] = { fg="#cfcf76", bold=false },
-	["@type.colorless"] = { fg="#cfcf9d", bold=false },
-	["@variable"] = { fg="#cfcf9d", bold=false },
-	["@variable.builtin"] = { fg="#cfcf9d", bold=false },
-	["@punctuation"] = { fg="#cfcf9d", bold=false },
-	["@punctuation.delimiter.semicolon"] = { fg="#ffffff", bold=true },
-	["@punctuation.special"] = { fg="#ffffff", bold=true },
-	["@keyword.repeat"] = { fg="#ffffff", bold=true },
-	["@keyword.branching"] = { fg="#ffffff", bold=true },
-	["@keyword.conditional"] = { fg="#ffffff", bold=true },
-	["@keyword"] = { fg="#B2D1F1", bold=false },
-	["@keyword.return"] = { fg="#B2D1F1", bold=false },
-	["@keyword.function.colorless"] = { fg="#cfcf9d", bold=false },
-	["@keyword.type"] = { fg="#cfcf9d", bold=false },
-	["@keyword.declaration"] = { fg="#cfcf9d", bold=false },
-	["@formatting"] = { fg="#ffffff", bold=false },
-	SpecialKey = { fg="white" },
-	Mi0LspError = { bg="#FF4136", fg="white" },
-	Mi0LspWarning = { bg="#FF851B", fg="black" },
-	Mi0LspInformation = { bg="#0074D9", fg="white" },
-	Mi0LspHint = { bg="#0074D9", fg="black" },
-}
-
-for groups, opts in pairs(highlights) do
-		vim.api.nvim_set_hl(0, groups, opts)
-end
+vim.cmd [[ colorscheme mi0 ]]
 
 vim.api.nvim_create_autocmd("TextYankPost", {
 	desc = "Highlight when yanking (copying) text",
