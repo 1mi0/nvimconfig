@@ -7,7 +7,7 @@ require('go').setup({
 				-- You can change the order of elements in the sidebar
 				elements = {
 					-- Provide IDs as strings or tables with "id" and "size" keys
-					{ id = "stacks", size = 0.25 },
+					{ id = "stacks",      size = 0.25 },
 					{ id = "breakpoints", size = 0.25 },
 					{
 						id = "scopes",
@@ -38,43 +38,6 @@ GoConfig = {
 	Client = "gopls",
 }
 
-local function run_go_generate(path)
-  -- Create a buffer for output
-  local bufnr = vim.api.nvim_create_buf(false, true) -- [listed, scratch]
-	vim.api.nvim_buf_set_option(bufnr, "bufhidden", "wipe")
-	vim.cmd("botright split")
-	vim.api.nvim_win_set_buf(0, bufnr)
-	vim.api.nvim_win_set_height(0, 15)
-  vim.api.nvim_buf_set_name(bufnr, "Go Generate Output")
-  vim.api.nvim_buf_set_option(bufnr, 'filetype', 'log')
-
-  -- Start the job
-  return vim.fn.jobstart({ "go", "generate", path }, {
-    stdout_buffered = true,
-    stderr_buffered = true,
-
-    on_stdout = function(_, data)
-      if data then
-        vim.api.nvim_buf_set_lines(bufnr, -1, -1, false, data)
-      end
-    end,
-
-    on_stderr = function(_, data)
-      if data then
-        vim.api.nvim_buf_set_lines(bufnr, -1, -1, false, data)
-      end
-    end,
-
-    on_exit = function(_, code)
-			if code == 0 then
-				vim.api.nvim_buf_set_lines(bufnr, -1, -1, false, { "", "✅ Done!" })
-			else
-				vim.api.nvim_buf_set_lines(bufnr, -1, -1, false, { "", "𝕏 Failed!" })
-			end
-    end,
-  })
-end
-
 local format_sync_grp = vim.api.nvim_create_augroup("GoFormat", {})
 function GoConfig:On_client(bufnr)
 	local opts = { buffer = bufnr, remap = true }
@@ -102,7 +65,7 @@ function GoConfig:On_client(bufnr)
 				buf = false,
 				name = "Storage generation"
 			},
-			function (old_buffer)
+			function(old_buffer)
 				mi0_lsp:RestartGoLsp(old_buffer)
 			end
 		)
@@ -115,7 +78,7 @@ function GoConfig:On_client(bufnr)
 				height = 30,
 				name = "Api generation"
 			},
-			function (old_buffer)
+			function(old_buffer)
 				mi0_lsp:RestartGoLsp(old_buffer)
 			end
 		)

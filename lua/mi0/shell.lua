@@ -7,45 +7,45 @@ ShellUtil = {
 }
 
 function ShellUtil:notify()
-    self.buf = vim.api.nvim_create_buf(false, true)
+	self.buf = vim.api.nvim_create_buf(false, true)
 
-    vim.api.nvim_buf_set_lines(self.buf, 0, -1, false, { "⏳ " .. self.Name .. " is running..." })
+	vim.api.nvim_buf_set_lines(self.buf, 0, -1, false, { "⏳ " .. self.Name .. " is running..." })
 
-    local width = 30
-    local height = 1
+	local width = 30
+	local height = 1
 
-    local editor_width = vim.api.nvim_get_option_value("columns", {})
-    local editor_height = vim.api.nvim_get_option_value("lines", {})
+	local editor_width = vim.api.nvim_get_option_value("columns", {})
+	local editor_height = vim.api.nvim_get_option_value("lines", {})
 
-    local row = editor_height - height - 2  -- -2 for command line space
-    local col = editor_width - width - 2    -- -2 for right padding
+	local row = editor_height - height - 2 -- -2 for command line space
+	local col = editor_width - width - 2   -- -2 for right padding
 
-    local opts = {
-        style = "minimal",
-        relative = "editor",
-        width = width,
-        height = height,
-        row = row,
-        col = col,
-        border = "rounded",
-    }
+	local opts = {
+		style = "minimal",
+		relative = "editor",
+		width = width,
+		height = height,
+		row = row,
+		col = col,
+		border = "rounded",
+	}
 
-    self.win = vim.api.nvim_open_win(self.buf, false, opts)
+	self.win = vim.api.nvim_open_win(self.buf, false, opts)
 end
 
 function ShellUtil:dismiss()
 	if self.win and vim.api.nvim_win_is_valid(self.win) then
-        vim.api.nvim_buf_set_lines(self.buf, 0, -1, false, { "✅ " .. self.Name .. " finished!" })
+		vim.api.nvim_buf_set_lines(self.buf, 0, -1, false, { "✅ " .. self.Name .. " finished!" })
 
-        vim.defer_fn(function()
-            if vim.api.nvim_win_is_valid(self.win) then
-                vim.api.nvim_win_close(self.win, true)
-                self.win = nil
-                self.buf = nil
-								self.old_buffer = nil
-            end
-        end, 2000)
-    end
+		vim.defer_fn(function()
+			if vim.api.nvim_win_is_valid(self.win) then
+				vim.api.nvim_win_close(self.win, true)
+				self.win = nil
+				self.buf = nil
+				self.old_buffer = nil
+			end
+		end, 2000)
+	end
 end
 
 function ShellUtil:execute(command, settings, on_done)
@@ -78,7 +78,7 @@ function ShellUtil:execute(command, settings, on_done)
 	end
 
 	self.Bufnr = vim.api.nvim_create_buf(false, true)
-	vim.api.nvim_set_option_value("bufhidden", "wipe", {buf = self.Bufnr})
+	vim.api.nvim_set_option_value("bufhidden", "wipe", { buf = self.Bufnr })
 
 	local opened = false
 	local function open()
@@ -97,23 +97,23 @@ function ShellUtil:execute(command, settings, on_done)
 		open()
 	end
 
-  return vim.fn.jobstart(command, {
+	return vim.fn.jobstart(command, {
 		stdout_buffered = false,
-    stderr_buffered = false,
+		stderr_buffered = false,
 
-    on_stdout = function(_, data)
-      if self.Bufnr and data then
+		on_stdout = function(_, data)
+			if self.Bufnr and data then
 				vim.api.nvim_buf_set_text(self.Bufnr, -1, -1, -1, -1, data)
-      end
-    end,
+			end
+		end,
 
-    on_stderr = function(_, data)
-      if self.Bufnr then
+		on_stderr = function(_, data)
+			if self.Bufnr then
 				vim.api.nvim_buf_set_text(self.Bufnr, -1, -1, -1, -1, data)
-      end
-    end,
+			end
+		end,
 
-    on_exit = function(_, code)
+		on_exit = function(_, code)
 			self:dismiss()
 
 			if code ~= 0 then
@@ -127,7 +127,7 @@ function ShellUtil:execute(command, settings, on_done)
 				local old_buffer = self.old_buffer
 				on_done(old_buffer, code)
 			end
-    end,
+		end,
 	})
 end
 

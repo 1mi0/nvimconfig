@@ -21,14 +21,14 @@ function LspConfig:RestartGoLsp(buffer_number)
 end
 
 function LspConfig:GoExitEvent()
-		if self.Should_restart_go_lsp then
-			self.Should_restart_go_lsp = false
-			vim.schedule(function()
-				vim.api.nvim_buf_call(self.Buffer_number, function()
-					vim.cmd("e")
-				end)
+	if self.Should_restart_go_lsp then
+		self.Should_restart_go_lsp = false
+		vim.schedule(function()
+			vim.api.nvim_buf_call(self.Buffer_number, function()
+				vim.cmd("e")
 			end)
-		end
+		end)
+	end
 end
 
 return LspConfig

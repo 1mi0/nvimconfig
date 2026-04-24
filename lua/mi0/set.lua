@@ -35,7 +35,7 @@ vim.opt.updatetime = 50
 vim.g.mapleader = " "
 
 vim.opt.listchars = {
-  trail = '█',
-  tab = '  ',
+	trail = '█',
+	tab = '  ',
 }
 vim.opt.list = true
