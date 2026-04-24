@@ -2,6 +2,7 @@ local lsp = require("lsp-zero")
 local mason = require("mason")
 local mason_lspconfig = require("mason-lspconfig")
 local null_ls = require("null-ls")
+local mi0_lsp = require('mi0.lsp')
 
 null_ls.setup({
 	sources = {
@@ -29,6 +30,9 @@ vim.lsp.config('gopls', {
 			--]]
 		},
 	},
+	on_exit = function(_, _, _)
+		mi0_lsp:GoExitEvent()
+	end,
 })
 vim.lsp.config('clangd', {
 	cmd = { "clangd-20", "--inlay-hints=false" },

@@ -82,7 +82,7 @@ function GoConfig:On_client(bufnr)
 	vim.api.nvim_create_autocmd("BufWritePre", {
 		buffer = bufnr,
 		callback = function()
-		 require("go.format").goimport()
+			require("go.format").goimport()
 		end,
 		group = format_sync_grp,
 	})
@@ -102,8 +102,8 @@ function GoConfig:On_client(bufnr)
 				buf = false,
 				name = "Storage generation"
 			},
-			function ()
-				vim.cmd("LspRestart")
+			function (old_buffer)
+				mi0_lsp:RestartGoLsp(old_buffer)
 			end
 		)
 	end, opts)
@@ -115,8 +115,8 @@ function GoConfig:On_client(bufnr)
 				height = 30,
 				name = "Api generation"
 			},
-			function ()
-				vim.cmd("LspRestart")
+			function (old_buffer)
+				mi0_lsp:RestartGoLsp(old_buffer)
 			end
 		)
 	end, opts)
